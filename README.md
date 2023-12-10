@@ -42,6 +42,7 @@ A simple tool to check if wallet is eligble to mint on a nft drop contract
 
 
 <img src="https://github.com/Yash094/Whitelist-Checker/blob/main/wl-checker-demo.png" />
+
 ## 🚀 Installation
 
 Follow these steps to set up the project:
@@ -69,7 +70,7 @@ Thank you for considering contributing to this project! To contribute, follow th
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/Yash094/Whitelist-Checker/blob/main/LICENSE) file for details.
+This project is licensed under the Apache License - see the [LICENSE](https://github.com/Yash094/Whitelist-Checker/blob/main/LICENSE) file for details.
 
 ## 📞 Contact
 
