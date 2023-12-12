@@ -5,12 +5,9 @@ import {
   useAddress,
 } from "@thirdweb-dev/react";
 import { VStack, Box, Text, Heading, Flex, Spinner } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
 import { CONTRACT_ADDRESS } from "../const/address";
 
 function Home() {
-  const [claimDetails, setClaimDetails] = useState([]);
-  const [isLoadingData, setIsLoadingData] = useState(true);
   const address = useAddress();
   const { data: contract } = useContract(CONTRACT_ADDRESS);
 
@@ -22,19 +19,9 @@ function Home() {
     }
   );
 
-  useEffect(() => {
-    if (!isLoading && claimConditions) {
-      if (!address) {
-        setIsLoadingData(false);
-        return;
-      }
-
-      const newClaimDetails = generateClaimDetails(address, claimConditions);
-      setClaimDetails(newClaimDetails);
-      setIsLoadingData(false);
-    }
-  }, [isLoading, claimConditions, address]);
-
+  if (isLoading) {
+    return <Loader />;
+  }
   const generateClaimDetails = (userAddress, conditions) => {
     return conditions.reduce((acc, condition) => {
       const matchingSnapshot = condition.snapshot?.find(
@@ -63,6 +50,8 @@ function Home() {
       return acc;
     }, []);
   };
+  const claimDetails = generateClaimDetails(address, claimConditions);
+
   return (
     <>
       <Flex direction="column" align="center" justify="center" height="100vh">
@@ -73,9 +62,7 @@ function Home() {
                 Your Wallet Can Claim in the Following Phases
               </Heading>
               <Text color="white">Wallet: {address}</Text>
-              {isLoadingData ? (
-                <Spinner color="white" mt={4} />
-              ) : claimDetails.length > 0 ? (
+              {claimDetails.length > 0 ? (
                 <VStack align="center" spacing={4}>
                   {claimDetails.map((condition, index) => (
                     <Box
@@ -115,3 +102,11 @@ function Home() {
 }
 
 export default Home;
+
+const Loader = () => {
+  return (
+    <Flex direction="column" align="center" justify="center" height="100vh">
+      <Spinner color="white" mt={4} />
+    </Flex>
+  );
+};
