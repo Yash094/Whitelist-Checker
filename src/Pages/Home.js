@@ -112,7 +112,7 @@ function Home() {
                       borderColor={
                         condition.phase.startTime.toString() ==
                         activeCondition.startTime.toString()
-                          ? "blue.500"
+                          ? "green.500"
                           : "white"
                       }
                     >
