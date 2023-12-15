@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { CONTRACT_ADDRESS } from "../const/address";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons"; // Import lock and unlock icons from Chakra UI
+import { useMemo } from "react";
 
 // Add import statements for lock and unlock icons if not already imported
 
@@ -82,7 +83,7 @@ function Home() {
     }, []);
   };
 
-  const claimDetails = generateClaimDetails(address, claimConditions);
+  const claimDetails = useMemo(() => generateClaimDetails(address, claimConditions), [address, claimConditions]);
 
   return (
     <>
