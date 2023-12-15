@@ -18,6 +18,7 @@ import {
 import { CONTRACT_ADDRESS } from "../const/address";
 import { LockIcon, UnlockIcon } from "@chakra-ui/icons"; // Import lock and unlock icons from Chakra UI
 import { useMemo } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 // Add import statements for lock and unlock icons if not already imported
 
@@ -38,11 +39,10 @@ function Home() {
     error,
   } = useActiveClaimCondition(contract);
 
-  if (isLoading) {
-    return <Loader />;
-  }
-
   const generateClaimDetails = (userAddress, conditions) => {
+    if (!conditions) {
+      return [];
+    }
     return conditions.reduce((acc, condition) => {
       const matchingSnapshot = condition.snapshot?.find(
         (snap) => snap && snap.address === userAddress
@@ -82,8 +82,13 @@ function Home() {
       return acc;
     }, []);
   };
-
-  const claimDetails = useMemo(() => generateClaimDetails(address, claimConditions), [address, claimConditions]);
+  const claimDetails = useMemo(
+    () => generateClaimDetails(address, claimConditions),
+    [address, claimConditions]
+  );
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -101,7 +106,7 @@ function Home() {
                 <VStack align="center" spacing={4}>
                   {claimDetails.map((condition, index) => (
                     <Flex
-                      key={index}
+                      key={uuidv4()}
                       align="center"
                       justify="space-between"
                       borderWidth="1px"
