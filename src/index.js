@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import "./styles/globals.css";
 import { ThirdwebProvider } from "@thirdweb-dev/react";
-import { Mumbai } from "@thirdweb-dev/chains";
+import { AvalancheFuji } from "@thirdweb-dev/chains";
 import Home from "./Pages/Home";
 import { ChakraProvider } from "@chakra-ui/react";
 
@@ -24,7 +24,7 @@ root.render(
   <React.StrictMode>
     <ChakraProvider>
       <ThirdwebProvider
-        activeChain={Mumbai}
+        activeChain={AvalancheFuji}
         clientId={process.env.REACT_APP_TEMPLATE_CLIENT_ID}
       >
         <RouterProvider router={router} />
